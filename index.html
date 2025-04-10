@@ -14,12 +14,15 @@
     <h1>21 Day Focus Tracker</h1>
 
     <!-- 👤 Name Input -->
-    <div style="text-align:center; margin-bottom: 15px;" id="nameContainer">
-      <input type="text" id="usernameInput" placeholder="Enter your name" style="padding: 6px; border-radius: 8px;">
+    <div class="name-container" id="nameContainer">
+      <input type="text" id="usernameInput" placeholder="Enter your name">
       <button onclick="saveUsername()">Save</button>
     </div>
 
-    <!-- 🧠 Quote -->
+    <!-- 🔔 Notification Button -->
+    <button id="notifyBtn">🔔 Enable Notifications</button>
+
+    <!-- 🧠 Motivational Quote -->
     <div class="quote" id="quote"></div>
 
     <!-- 📅 Tracker Table -->
@@ -37,11 +40,11 @@
       <tbody id="tracker-body"></tbody>
     </table>
 
-    <!-- 📈 Progress -->
+    <!-- 📈 Progress Report -->
     <div class="report" id="progressReport"></div>
 
     <!-- 📲 Install App -->
-    <button id="installBtn" style="display:none; margin: 20px auto;">📲 Install App</button>
+    <button id="installBtn">📲 Install App</button>
   </div>
 
   <script src="script.js"></script>
