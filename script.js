@@ -3,7 +3,7 @@ const tbody = document.getElementById("tracker-body");
 const reportBox = document.getElementById("progressReport");
 let notifiedDays = JSON.parse(localStorage.getItem("notifiedDays") || "[]");
 
-// Motivational Quotes
+// Quotes
 const quotes = [
   "Discipline is the bridge between goals and accomplishment.",
   "Push yourself, no one else is going to do it for you.",
@@ -12,7 +12,7 @@ const quotes = [
   "Success is not for the lazy."
 ];
 
-// Build the tracker table
+// Build the table
 for (let i = 1; i <= 21; i++) {
   const row = document.createElement("tr");
   let rowHTML = `<td class="sticky-col">Day ${i}</td>`;
@@ -25,7 +25,7 @@ for (let i = 1; i <= 21; i++) {
   tbody.appendChild(row);
 }
 
-// Attach checkbox listeners
+// Checkbox listeners
 goals.forEach(goal => {
   for (let i = 1; i <= 21; i++) {
     const id = `day${i}_${goal}`;
@@ -36,14 +36,7 @@ goals.forEach(goal => {
   }
 });
 
-// Request notification permission on load
-if ('Notification' in window && Notification.permission === 'default') {
-  Notification.requestPermission().then(permission => {
-    console.log("Notification permission:", permission);
-  });
-}
-
-// Save name and hide input
+// Save name
 function saveUsername() {
   const nameInput = document.getElementById('usernameInput');
   const container = document.getElementById('nameContainer');
@@ -54,7 +47,24 @@ function saveUsername() {
   }
 }
 
-// Update progress report and notify if day complete
+// Notification button
+const notifyBtn = document.getElementById('notifyBtn');
+if (notifyBtn) {
+  notifyBtn.addEventListener('click', () => {
+    if ('Notification' in window) {
+      Notification.requestPermission().then(permission => {
+        if (permission === 'granted') {
+          alert("Notifications enabled!");
+          notifyBtn.style.display = 'none';
+        } else {
+          alert("Notifications denied.");
+        }
+      });
+    }
+  });
+}
+
+// Report update + notification
 function updateProgressReport() {
   let completeDays = 0;
   const newNotifiedDays = [...notifiedDays];
@@ -98,7 +108,7 @@ function updateProgressReport() {
   reportBox.innerHTML = message;
 }
 
-// Show random quote
+// Show quote
 const quoteBox = document.getElementById("quote");
 function showRandomQuote() {
   const quote = quotes[Math.floor(Math.random() * quotes.length)];
@@ -107,7 +117,7 @@ function showRandomQuote() {
 showRandomQuote();
 setInterval(showRandomQuote, 10000);
 
-// PWA install button
+// Install button
 let deferredPrompt;
 const installBtn = document.getElementById('installBtn');
 if (installBtn) {
@@ -131,7 +141,7 @@ if (installBtn) {
   });
 }
 
-// Hide name input if already saved
+// Init
 window.addEventListener('DOMContentLoaded', () => {
   const savedName = localStorage.getItem("username");
   if (savedName) {
