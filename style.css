@@ -1,76 +1,137 @@
-/* style.css */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: linear-gradient(145deg, #1f1f1f, #333);
-  color: white;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(to right, #232526, #414345);
+  color: #fff;
   padding: 20px;
-  text-align: center;
 }
 
-.goal-icon {
-  width: 64px;
-  height: 64px;
-  margin-bottom: 10px;
+.app {
+  max-width: 1000px;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.05);
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  overflow-x: auto;
 }
 
-h1 {
-  margin: 0;
-  font-size: 1.8em;
-}
-
-.quote {
-  font-style: italic;
-  margin: 10px 0 20px;
-  color: #ff6347;
-}
-
+/* Optimized table wrapper for horizontal scroll on mobile */
 .tracker-table {
   width: 100%;
   border-collapse: collapse;
-  overflow-x: auto;
+  margin-top: 10px;
   display: block;
-  max-width: 100%;
+  overflow-x: auto;
+  white-space: nowrap;
+}
+
+.tracker-table table {
+  width: 100%;
+  min-width: 600px;
 }
 
 .tracker-table th,
 .tracker-table td {
-  border: 1px solid #888;
-  padding: 8px;
-  min-width: 110px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 10px;
   text-align: center;
 }
 
-/* Make the "Day" column sticky */
+/* Sticky "Day" column */
 .tracker-table th:first-child,
 .tracker-table td:first-child {
   position: sticky;
   left: 0;
-  background-color: #2e2e2e;
+  background: rgba(35, 37, 38, 0.95);
+  backdrop-filter: blur(5px);
   z-index: 2;
-  color: #fff;
   font-weight: bold;
   text-align: left;
 }
 
-/* Improve checkbox visibility on dark background */
-input[type="checkbox"] {
-  width: 20px;
-  height: 20px;
-  transform: scale(1.2);
-  cursor: pointer;
+.tracker-table th {
+  background-color: rgba(255, 255, 255, 0.1);
+  font-size: 1rem;
 }
 
-/* Responsive tweaks */
-@media (max-width: 600px) {
+input[type="checkbox"] {
+  transform: scale(1.2);
+  accent-color: #3f87de;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* Header */
+.goal-icon {
+  width: 80px;
+  display: block;
+  margin: 0 auto 20px auto;
+  animation: popIn 0.5s ease-in-out;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+}
+
+.quote {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #d74828;
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Mobile-friendly tweaks */
+@media (max-width: 768px) {
   .tracker-table th,
   .tracker-table td {
-    min-width: 90px;
-    padding: 6px;
+    padding: 8px;
+    font-size: 0.85rem;
+  }
+
+  .tracker-table {
+    overflow-x: auto;
+  }
+
+  .quote {
+    font-size: 1rem;
   }
 
   h1 {
-    font-size: 1.5em;
+    font-size: 1.6rem;
+  }
+
+  .goal-icon {
+    width: 60px;
   }
 }
