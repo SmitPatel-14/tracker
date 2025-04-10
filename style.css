@@ -6,34 +6,53 @@
 
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #232526, #414345);
+  background: linear-gradient(to right, #1f1c2c, #928dab);
   color: #fff;
   padding: 20px;
 }
 
 .app {
-  max-width: 1000px;
+  max-width: 1100px;
   margin: auto;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.07);
   padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-  overflow-x: auto;
+  border-radius: 20px;
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
 }
 
-/* Optimized table wrapper for horizontal scroll on mobile */
+.goal-icon {
+  width: 80px;
+  display: block;
+  margin: 0 auto 20px auto;
+  animation: popIn 0.6s ease-in-out;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  color: #ffcc70;
+}
+
+.quote {
+  text-align: center;
+  font-style: italic;
+  font-size: 1.1rem;
+  margin-bottom: 20px;
+  color: #ffd700;
+  animation: fadeIn 1s ease-in-out;
+}
+
 .tracker-table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 10px;
-  display: block;
   overflow-x: auto;
-  white-space: nowrap;
+  display: block;
 }
 
-.tracker-table table {
-  width: 100%;
-  min-width: 600px;
+.tracker-table thead {
+  background-color: rgba(255, 255, 255, 0.1);
 }
 
 .tracker-table th,
@@ -41,31 +60,57 @@ body {
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 10px;
   text-align: center;
+  min-width: 120px;
 }
 
-/* Sticky "Day" column */
 .tracker-table th:first-child,
 .tracker-table td:first-child {
   position: sticky;
   left: 0;
-  background: rgba(35, 37, 38, 0.95);
-  backdrop-filter: blur(5px);
+  background: rgba(31, 28, 44, 0.95);
   z-index: 2;
-  font-weight: bold;
-  text-align: left;
-}
-
-.tracker-table th {
-  background-color: rgba(255, 255, 255, 0.1);
-  font-size: 1rem;
 }
 
 input[type="checkbox"] {
-  transform: scale(1.2);
-  accent-color: #3f87de;
+  transform: scale(1.3);
+  accent-color: #00e676;
 }
 
-/* Animations */
+.motivation {
+  text-align: center;
+  margin: 20px 0;
+  font-weight: bold;
+  font-size: 1.2rem;
+  color: #00e676;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.report-section {
+  margin-top: 30px;
+  background-color: rgba(255, 255, 255, 0.06);
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.report-section h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: #90caf9;
+}
+
+.report-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #ffffff;
+}
+
+.report-table th,
+.report-table td {
+  padding: 8px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -88,50 +133,35 @@ input[type="checkbox"] {
   }
 }
 
-/* Header */
-.goal-icon {
-  width: 80px;
-  display: block;
-  margin: 0 auto 20px auto;
-  animation: popIn 0.5s ease-in-out;
-}
-
-h1 {
-  text-align: center;
-  font-size: 2.2rem;
-  margin-bottom: 10px;
-}
-
-.quote {
-  text-align: center;
-  font-style: italic;
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-  color: #d74828;
-  animation: fadeIn 1s ease-in-out;
-}
-
-/* Mobile-friendly tweaks */
 @media (max-width: 768px) {
-  .tracker-table th,
-  .tracker-table td {
-    padding: 8px;
-    font-size: 0.85rem;
-  }
-
-  .tracker-table {
-    overflow-x: auto;
+  h1 {
+    font-size: 1.8rem;
   }
 
   .quote {
     font-size: 1rem;
   }
 
-  h1 {
-    font-size: 1.6rem;
-  }
-
   .goal-icon {
     width: 60px;
+  }
+
+  .tracker-table th,
+  .tracker-table td {
+    font-size: 0.8rem;
+    padding: 6px;
+  }
+
+  .motivation {
+    font-size: 1rem;
+  }
+
+  .report-section h2 {
+    font-size: 1.2rem;
+  }
+
+  .report-table th,
+  .report-table td {
+    font-size: 0.85rem;
   }
 }
