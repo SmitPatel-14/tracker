@@ -1,167 +1,120 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
+/* Reset and Base Styles */
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #1f1c2c, #928dab);
-  color: #fff;
-  padding: 20px;
-}
-
-.app {
-  max-width: 1100px;
-  margin: auto;
-  background: rgba(255, 255, 255, 0.07);
-  padding: 20px;
-  border-radius: 20px;
-  box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
-}
-
-.goal-icon {
-  width: 80px;
-  display: block;
-  margin: 0 auto 20px auto;
-  animation: popIn 0.6s ease-in-out;
-}
-
-h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 10px;
-  color: #ffcc70;
-}
-
-.quote {
-  text-align: center;
-  font-style: italic;
-  font-size: 1.1rem;
-  margin-bottom: 20px;
-  color: #ffd700;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.tracker-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  overflow-x: auto;
-  display: block;
-}
-
-.tracker-table thead {
-  background-color: rgba(255, 255, 255, 0.1);
-}
-
-.tracker-table th,
-.tracker-table td {
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 10px;
-  text-align: center;
-  min-width: 120px;
-}
-
-.tracker-table th:first-child,
-.tracker-table td:first-child {
-  position: sticky;
-  left: 0;
-  background: rgba(31, 28, 44, 0.95);
-  z-index: 2;
-}
-
-input[type="checkbox"] {
-  transform: scale(1.3);
-  accent-color: #00e676;
-}
-
-.motivation {
-  text-align: center;
-  margin: 20px 0;
-  font-weight: bold;
-  font-size: 1.2rem;
-  color: #00e676;
-  animation: fadeIn 1s ease-in-out;
-}
-
-.report-section {
-  margin-top: 30px;
-  background-color: rgba(255, 255, 255, 0.06);
-  padding: 15px;
-  border-radius: 10px;
-}
-
-.report-section h2 {
-  text-align: center;
-  margin-bottom: 15px;
-  color: #90caf9;
-}
-
-.report-table {
-  width: 100%;
-  border-collapse: collapse;
-  color: #ffffff;
-}
-
-.report-table th,
-.report-table td {
-  padding: 8px;
-  text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(-10px);
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to right, #232526, #414345);
+    color: #f1f1f1;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 20px;
+    box-sizing: border-box;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes popIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-@media (max-width: 768px) {
+  
   h1 {
-    font-size: 1.8rem;
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #ffffff;
   }
-
+  
+  /* App Container */
+  .app {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 20px;
+    width: 100%;
+    max-width: 900px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    overflow-x: auto;
+  }
+  
+  /* Motivational Quote */
   .quote {
+    text-align: center;
+    font-style: italic;
     font-size: 1rem;
+    margin-bottom: 20px;
+    color: #ccc;
   }
-
+  
+  /* Goal Icon */
   .goal-icon {
+    display: block;
+    margin: 0 auto 10px;
     width: 60px;
+    height: 60px;
   }
-
-  .tracker-table th,
-  .tracker-table td {
-    font-size: 0.8rem;
-    padding: 6px;
+  
+  /* Tracker Table */
+  .tracker-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
   }
-
-  .motivation {
-    font-size: 1rem;
+  
+  .tracker-table th, .tracker-table td {
+    border: 1px solid #666;
+    padding: 10px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.05);
   }
-
-  .report-section h2 {
-    font-size: 1.2rem;
+  
+  .tracker-table th {
+    background-color: rgba(255, 255, 255, 0.15);
+    font-weight: 600;
   }
-
-  .report-table th,
-  .report-table td {
-    font-size: 0.85rem;
+  
+  input[type="checkbox"] {
+    transform: scale(1.3);
   }
-}
+  
+  /* Sticky First Column */
+  .sticky-col {
+    position: sticky;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.1);
+    z-index: 2;
+  }
+  
+  /* Progress Report */
+  .report {
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 1.1rem;
+    color: #fafafa;
+    text-align: center;
+  }
+  
+  .reward {
+    color: #00ffcc;
+    font-weight: bold;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.5rem;
+    }
+  
+    .tracker-table th, .tracker-table td {
+      padding: 6px;
+      font-size: 0.85rem;
+    }
+  
+    .quote {
+      font-size: 0.9rem;
+    }
+  
+    input[type="checkbox"] {
+      transform: scale(1.1);
+    }
+  
+    .report {
+      font-size: 1rem;
+    }
+  }
+  
