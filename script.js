@@ -1,29 +1,18 @@
-const goals = ['wakeup', 'workout', 'read', 'lesssm', 'nopm'];
+const goals = ['wakeup', 'workout', 'read', 'lesssm', 'study'];
 const tbody = document.getElementById("tracker-body");
 const reportBox = document.getElementById("progressReport");
+let notifiedDays = JSON.parse(localStorage.getItem("notifiedDays") || "[]");
 
-function updateProgressReport() {
-  let completeDays = 0;
+// Motivational Quotes
+const quotes = [
+  "Discipline is the bridge between goals and accomplishment.",
+  "Push yourself, no one else is going to do it for you.",
+  "The pain you feel today will be the strength you feel tomorrow.",
+  "Small daily improvements lead to stunning results.",
+  "Success is not for the lazy."
+];
 
-  for (let i = 1; i <= 21; i++) {
-    let allChecked = true;
-    for (const goal of goals) {
-      const id = `day${i}_${goal}`;
-      if (localStorage.getItem(id) !== 'true') {
-        allChecked = false;
-        break;
-      }
-    }
-    if (allChecked) completeDays++;
-  }
-
-  let message = `<strong>Progress:</strong> ${completeDays} / 21 days fully completed.`;
-  if (completeDays === 21) {
-    message += `<br><span class="reward">🎉 You’ve completed all 21 days! Stay disciplined!</span>`;
-  }
-  reportBox.innerHTML = message;
-}
-
+// Build the tracker table
 for (let i = 1; i <= 21; i++) {
   const row = document.createElement("tr");
   let rowHTML = `<td class="sticky-col">Day ${i}</td>`;
@@ -36,6 +25,7 @@ for (let i = 1; i <= 21; i++) {
   tbody.appendChild(row);
 }
 
+// Attach checkbox listeners
 goals.forEach(goal => {
   for (let i = 1; i <= 21; i++) {
     const id = `day${i}_${goal}`;
@@ -46,20 +36,107 @@ goals.forEach(goal => {
   }
 });
 
-const quotes = [
-  "Discipline is the bridge between goals and accomplishment.",
-  "Push yourself, no one else is going to do it for you.",
-  "The pain you feel today will be the strength you feel tomorrow.",
-  "Small daily improvements lead to stunning results.",
-  "Success is not for the lazy."
-];
+// Request notification permission on load
+if ('Notification' in window && Notification.permission === 'default') {
+  Notification.requestPermission().then(permission => {
+    console.log("Notification permission:", permission);
+  });
+}
 
+// Save name and hide input
+function saveUsername() {
+  const nameInput = document.getElementById('usernameInput');
+  const container = document.getElementById('nameContainer');
+  if (nameInput.value.trim()) {
+    localStorage.setItem("username", nameInput.value.trim());
+    container.style.display = 'none';
+    updateProgressReport();
+  }
+}
+
+// Update progress report and notify if day complete
+function updateProgressReport() {
+  let completeDays = 0;
+  const newNotifiedDays = [...notifiedDays];
+  const name = localStorage.getItem("username") || "champ";
+
+  for (let i = 1; i <= 21; i++) {
+    let allChecked = true;
+    for (const goal of goals) {
+      const id = `day${i}_${goal}`;
+      if (localStorage.getItem(id) !== 'true') {
+        allChecked = false;
+        break;
+      }
+    }
+
+    if (allChecked) {
+      completeDays++;
+      if (!notifiedDays.includes(i)) {
+        const quote = quotes[Math.floor(Math.random() * quotes.length)];
+        const message = `🎉 Great job, ${name}, on completing Day ${i}!\n"${quote}"`;
+
+        if (Notification.permission === 'granted') {
+          new Notification("Daily Achievement Unlocked!", {
+            body: message,
+            icon: 'gicon.png',
+            badge: 'icons/icon-192.png'
+          });
+        }
+        newNotifiedDays.push(i);
+      }
+    }
+  }
+
+  localStorage.setItem("notifiedDays", JSON.stringify(newNotifiedDays));
+  notifiedDays = newNotifiedDays;
+
+  let message = `<strong>Progress:</strong> ${completeDays} / 21 days fully completed.`;
+  if (completeDays === 21) {
+    message += `<br><span class="reward">🎉 You’ve completed all 21 days! Stay disciplined!</span>`;
+  }
+  reportBox.innerHTML = message;
+}
+
+// Show random quote
 const quoteBox = document.getElementById("quote");
 function showRandomQuote() {
   const quote = quotes[Math.floor(Math.random() * quotes.length)];
   quoteBox.innerText = `"${quote}"`;
 }
-
 showRandomQuote();
 setInterval(showRandomQuote, 10000);
-updateProgressReport();
+
+// PWA install button
+let deferredPrompt;
+const installBtn = document.getElementById('installBtn');
+if (installBtn) {
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBtn.style.display = 'block';
+  });
+
+  installBtn.addEventListener('click', () => {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(choiceResult => {
+        if (choiceResult.outcome === 'accepted') {
+          console.log('User accepted the install prompt');
+        }
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+      });
+    }
+  });
+}
+
+// Hide name input if already saved
+window.addEventListener('DOMContentLoaded', () => {
+  const savedName = localStorage.getItem("username");
+  if (savedName) {
+    const nameContainer = document.getElementById('nameContainer');
+    if (nameContainer) nameContainer.style.display = 'none';
+  }
+  updateProgressReport();
+});
